@@ -1,23 +1,30 @@
 const {createApp} = Vue;
 
-createApp()({
-  Data(){
+createApp({
+  data(){
 
   
   return{
-    email:'',
+    numEmail:10,
+    email:[],
     apiUrl: 'https://flynn.boolean.careers/exercises/api/random/mail' ,
     }
   },
 
 
 methods:{
-  getApi(){
+  getEmail(){
     axios.get(this.apiUrl).then(result => {
-      console.log(result.data);
-    })
+      console.log(result.data.response);
+      this.email.push(result.data.response)
+    });
   }
 
+},
+mounted(){
+  for(let i = 0; i < this.numEmail; i++){
+    this.getEmail();
+  }
 }
 
 
